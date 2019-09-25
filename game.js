@@ -1,5 +1,16 @@
-window.main = function () {
-  window.requestAnimationFrame( draw );
+var timestep = 1000/ 60;
+var delta = 0;
+var lastFrameTimeMs = 0;
+
+function main (timestamp) {
+	delta += timestamp - lastFrameTimeMs;
+	lastFrameTimeMs = timestamp;
+	while (delta >= timestep) {
+		update(timestep);
+		delta -= timestep;
+	}
+	draw();
+  window.requestAnimationFrame( main );
  
   // Whatever your main loop needs to do
 };
@@ -7,7 +18,7 @@ window.main = function () {
 var seed = Math.floor(Math.random()*1000);
 var rng =  new Random(seed);
 
-main(); // Start the cycle
+ // Start the cycle
 
 var sent = 0;
 
@@ -21,7 +32,7 @@ var y = 120;
 var cloudx= 0;
 var cloudy = 50;
 
-var speed = 5;
+var speed = 0.3;
 
 	var dy = -30;
 	var ddy = 10;
@@ -39,7 +50,8 @@ var score= 0;
 var lost = 0;
 
 var rsqrd = Math.pow((25/Math.sqrt(2)),2);
-function draw() {
+window.requestAnimationFrame(main)
+function update(delta) {
 
 	if (redy >= y + 25 & redx <40 & enemy == blue)
 	{
@@ -64,38 +76,7 @@ function draw() {
 	if (key) {
 	alert(key);
 }*/
-	var canvas = document.getElementById('canvas');
-	var ctx = canvas.getContext('2d');
-
-	ctx.clearRect(0, 0, 300, 300); // clear canvas
-	ctx.fillStyle = 'aqua';
-	ctx.fillRect(0,0,300,145)
-	ctx.fillStyle = 'green';
-	ctx.fillRect(0, 145, 300,300);
-
-
 	
-	if (lost) {
-		lose()
-	}
-	else {
-	
-	ctx.fillStyle = enemy;
-	ctx.fillRect(redx,redy,
-		redwidth,redheight);
-
-	
-	rot +=1;
-	if (rot == 15) {rot == 0}
-	ctx.fillStyle = 'black';
-	ctx.save();
-	ctx.translate(x+ 13, y + 13);
-	ctx.rotate(rot  * Math.PI / 30);
-	ctx.translate(-x- 13, -y - 13);
-	ctx.fillRect(x,y,25,25);
-	ctx.restore();
-	ctx.font = "16px serif";
-	ctx.fillText(score, 12,16)
 	
 
 	if (setjump | y < sy)
@@ -107,7 +88,7 @@ function draw() {
 	{
 		sy = y;
 	};
-	redx -= speed;
+	redx -= speed * timestep;
 
 	
 	if (redx <= -25) 
@@ -121,7 +102,7 @@ function draw() {
 		if (redy % 3 == 0) {enemy = blue;}
 		else { enemy = red;}
 		score += 1;
-		speed =  5 + Math.floor((rng.next() / 4294967294)*20)
+		speed =  0.3 +(rng.next() / 4294967294)*1.5
 		
 	};
 
@@ -129,8 +110,7 @@ function draw() {
 
 	
 }
-window.requestAnimationFrame(draw);
-}
+
 
 function move(event) {
 	
@@ -145,7 +125,7 @@ function move(event) {
 		if (x) {seed = x};
 		redx = 500;
 		redy=120;
-		speed = 5;
+		speed = 0.3;
 		enemy = red;
 		rng = new Random(seed);
 		lost= 0;
@@ -251,6 +231,42 @@ function sendData() {
 	var seedname = seed.toString()
 
 
-	xhttp.open("POST", "http://localhost:8080/" + "score?name=" + name + "&seed="+seedname+"&score="+score.toString(), true);
+	xhttp.open("POST", "http://localhost:5000/" + "score?name=" + name + "&seed="+seedname+"&score="+score.toString(), true);
   	xhttp.send();
+  	document.getElementById('scores').src += " ";
 }
+
+function draw() {
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+
+	ctx.clearRect(0, 0, 300, 300); // clear canvas
+	ctx.fillStyle = 'aqua';
+	ctx.fillRect(0,0,300,145)
+	ctx.fillStyle = 'green';
+	ctx.fillRect(0, 145, 300,300);
+
+
+	
+	if (lost) {
+		lose()
+	}
+	else {
+	
+	ctx.fillStyle = enemy;
+	ctx.fillRect(redx,redy,
+		redwidth,redheight);
+
+	
+	rot +=1;
+	if (rot == 15) {rot == 0}
+	ctx.fillStyle = 'black';
+	ctx.save();
+	ctx.translate(x+ 13, y + 13);
+	ctx.rotate(rot  * Math.PI / 30);
+	ctx.translate(-x- 13, -y - 13);
+	ctx.fillRect(x,y,25,25);
+	ctx.restore();
+	ctx.font = "16px serif";
+	ctx.fillText(score, 12,16)
+}}

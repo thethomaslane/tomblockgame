@@ -5,8 +5,11 @@ var http = require("http");
 var url = require("url");
 var ejs = require('ejs');
 
-var content = fs.readFileSync('game.html', 'utf-8');
-var compiled = ejs.compile(content);
+var game = fs.readFileSync('game.html', 'utf-8');
+var compiled = ejs.compile(game);
+
+var scores = fs.readFileSync('highscores.html', 'utf-8');
+var scorecompiled = ejs.compile(scores);
 
 http.createServer(function (request, response) {
 
@@ -15,8 +18,14 @@ http.createServer(function (request, response) {
 
 
     response.writeHead(200);
+    if (pathname == "/") {
+    	response.writeHead(200, {'Content-Type': 'text/html'});
+		response.write(compiled());
+		response.end();
 
-    if(pathname == "/") {
+    }
+
+    if(pathname == "/highscores.html") {
     	
         fs.readFile('highscore.txt','utf8', function(err, data) {
         	if (err) throw err;
@@ -40,7 +49,7 @@ http.createServer(function (request, response) {
     	
     	
     	response.writeHead(200, {'Content-Type': 'text/html'});
-		response.write(compiled({Name1: Name1, Score1: Score1, Seed1:Seed1, Name2: Name2, 
+		response.write(scorecompiled({Name1: Name1, Score1: Score1, Seed1:Seed1, Name2: Name2, 
 			Score2: Score2, Seed2:Seed2,Name3: Name3, Score3: Score3, Seed3:Seed3}));
 		response.end();
 		});}
