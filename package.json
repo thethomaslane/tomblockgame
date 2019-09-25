@@ -1,0 +1,24 @@
+{
+  "name": "gamecopy",
+  "version": "1.0.0",
+  "description": "tomblockgame",
+  "main": "server.js",
+  "dependencies": {
+    "ejs": "^2.6.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thethomaslane/tomblockgame.git"
+  },
+  "author": "Thomas Lane",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thethomaslane/tomblockgame/issues"
+  },
+  "homepage": "https://github.com/thethomaslane/tomblockgame#readme"
+}
