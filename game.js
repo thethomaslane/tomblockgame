@@ -231,7 +231,7 @@ function sendData() {
 	var seedname = seed.toString()
 
 
-	xhttp.open("POST", "http://localhost:5000/" + "score?name=" + name + "&seed="+seedname+"&score="+score.toString(), true);
+	xhttp.open("POST", "/" + "score?name=" + name + "&seed="+seedname+"&score="+score.toString(), true);
   	xhttp.send();
   	document.getElementById('scores').src += " ";
 }
