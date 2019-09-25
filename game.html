@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+	html {
+  touch-action: manipulation;
+}
+</style>
+<title>Game</title>
+<meta name="viewport" content="width=device-width">
+<script type="text/javascript" src="game.js" ></script>
+</head>
+<body id="main">
+<h1>Press and hold j to jump</h1>
+<h2>jump over the red blocks</h2>
+<h2>You can jump on the blue blocks</h2>
+<form id='form'>Seed
+<input id='seed' type='number'>Name
+<input id='name' type='text'>
+<input id='score' type='hidden'>
+</form>
+
+<canvas id="canvas" >Your Browser does not support this game</canvas>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Score</th>
+		<th>Seed</th>
+	</tr>
+	<tr>
+		<th><%= Name1 %> </th>
+		<th><%= Score1 %> </th>
+		<th><%= Seed1 %> </th>
+	</tr>
+	<tr>
+		<th><%= Name2 %> </th>
+		<th><%= Score2 %> </th>
+		<th><%= Seed2 %> </th>
+	</tr>
+	<tr>
+		<th><%= Name3 %> </th>
+		<th><%= Score3 %> </th>
+		<th><%= Seed3 %> </th>
+	</tr>
+</table>
+
+</body>
+</html>
