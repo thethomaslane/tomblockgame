@@ -244,11 +244,11 @@ function draw() {
 	var canvas = document.getElementById('canvas');
 	var ctx = canvas.getContext('2d');
 
-	ctx.clearRect(0, 0, 300, 300); // clear canvas
+	ctx.clearRect(0, 0, 600, 600); // clear canvas
 	ctx.fillStyle = 'aqua';
-	ctx.fillRect(0,0,300,145)
+	ctx.fillRect(0,0,600,145)
 	ctx.fillStyle = 'green';
-	ctx.fillRect(0, 145, 300,300);
+	ctx.fillRect(0, 145, 600,300);
 
 
 	
