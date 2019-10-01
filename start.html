@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<h1>Press and hold j to jump</h1>
+<h2>jump over the red blocks</h2>
+<h2>You can jump on the blue blocks</h2>
+<form id='form' >Seed
+<input id='seed' type='number' onchange="addSeed()">Name
+<input id='name' type='text' onchange="addName()">
+
+</form>
+<br><br>
+<a id="link" href="game.html">start game</a>
+
+<iframe id="scores" src="/highscores.html"></iframe>
+</body>
+
+<script>
+	var link = document.getElementById('link');
+	var url = new URLSearchParams("/game.html");
+	function addSeed() {
+		link.href += "?seed="
+		link.href += document.getElementById('seed').value;
+	}
+	function addName() {
+		link.href += "&name=";
+		link.href += document.getElementById('name').value;
+	}
+</script>

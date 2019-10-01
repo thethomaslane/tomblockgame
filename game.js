@@ -1,6 +1,6 @@
 var timestep = 1000/ 60;
 var delta = 0;
-var lastFrameTimeMs = 0;
+var lastFrameTimeMs = 0; 
 
 function main (timestamp) {
 	delta += timestamp - lastFrameTimeMs;
@@ -121,8 +121,9 @@ function move(event) {
 		setjump += 1;
 	};
 	if ((event.key =='r' | event.type== 'touchstart' )& lost == 1) {
-		var x = document.getElementById("seed").value;
-		if (x) {seed = x};
+		var x = new URLSearchParams(window.location.search).get('seed');
+		console.log(x);
+		if (!isNaN(x)) {seed = x};
 		redx = 500;
 		redy=120;
 		speed = 0.3;
@@ -227,13 +228,16 @@ Random.prototype.next = function () {
 function sendData() {
 	sent = 1
 	var xhttp = new XMLHttpRequest();
-	var name = document.getElementById('name').value
-	var seedname = seed.toString()
+	var urlParams = new URLSearchParams(window.location.search);
+
+	var name =urlParams.get('name');
+	var seedname =urlParams.get('seed');
+	console.log(name);
 
 
 	xhttp.open("POST", "/" + "score?name=" + name + "&seed="+seedname+"&score="+score.toString(), true);
   	xhttp.send();
-  	document.getElementById('scores').src += " ";
+  	
 }
 
 function draw() {

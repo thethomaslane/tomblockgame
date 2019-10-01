@@ -2,7 +2,7 @@
 
 var fs = require("fs");
 var http = require("http");
-var url = require("url");
+var url = require("url"); 
 var ejs = require('ejs');
 
 var game = fs.readFileSync('game.html', 'utf-8');
@@ -19,6 +19,12 @@ http.createServer(function (request, response) {
 
     response.writeHead(200);
     if (pathname == "/") {
+        response.writeHead(200, {'Content-Type': 'text/html'});
+        var page = fs.readFileSync('start.html', 'utf-8');
+        response.write(page);
+        response.end();
+    }
+    if (pathname == "/game.html") {
     	response.writeHead(200, {'Content-Type': 'text/html'});
 		response.write(compiled());
 		response.end();
@@ -71,7 +77,7 @@ http.createServer(function (request, response) {
     
 }).listen(process.env.PORT || 5000);
 
-console.log("Listening to server on 8080...");
+console.log("Listening to server...");
 
 function highscore(userscore) {
 	console.log('highscores');
